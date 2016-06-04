@@ -11,7 +11,7 @@ Esfera::Esfera(int _indice_textura, float _raio, const Ponto_3D& _centro) : Obje
 //Foley capítulo 15.10, fórmula 15.17
 Intersection Esfera::Intercepta(const Raio& r_vis, IntersectionMode mode, float threshold)
 {
-  float distx, disty, distz, a, b, c, delta;
+  float a, b, c, delta;
   Intersection intersection;
 
   // valores intermediários
@@ -22,15 +22,15 @@ Intersection Esfera::Intercepta(const Raio& r_vis, IntersectionMode mode, float 
 
   // montando a equação do 2º grau at2 + bt + c = 0
   a = r_vis.Direcao().produtoEscalar(r_vis.Direcao());
-  b = 2 * (r_vis.Direcao().produtoEscalar( K ));
+  b = 2*(r_vis.Direcao().produtoEscalar( K ));
   c = K.produtoEscalar(K) - raio*raio;
 
   delta = b*b - 4*a*c;
   if (delta >= 0) {
-      float t1 = (-b + sqrt(delta)) / (2*a);
-      float t2 = (-b - sqrt(delta)) / (2*a);
-      t1 = (t1 < t2)? t1:t2;
-      intersection.setValues(this, t1);
+
+      intersection = Intersection::nearest(
+                  Intersection(this, (-b - sqrt(delta)) /(2*a)),
+                  Intersection(this, (-b + sqrt(delta)) /(2*a)), threshold);
   }
 
   return intersection;

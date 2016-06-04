@@ -37,6 +37,9 @@ class Vetor_3D{
     inline float X() const {  return(x); }
     inline float Y() const {  return(y); }
     inline float Z() const {  return(z); }
+    void  setX(float _x) {  x = _x; }
+    void  setY(float _y) {  y = _y; }
+    void  setZ(float _z) {  z = _z; }
     Vetor_3D operator-()const { return Vetor_3D(-x, -y, -z); }
     const Vetor_3D& operator=(const Vetor_3D& e ) { x = e.X(); y = e.Y(); z = e.Z(); return *this; }
 
